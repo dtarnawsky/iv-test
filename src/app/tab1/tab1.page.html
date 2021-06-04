@@ -1,8 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+    <ion-buttons>
+      <ion-title>
+        Authenticated={{authenticationChange$ | async}}
+      </ion-title>
+      <ion-button [hidden]="(authenticationChange$ | async)" (click)="login()">Sign In</ion-button>
+      <ion-button [hidden]="(authenticationChange$ | async) === false" (click)="logout()">Sign Out</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -11,7 +15,5 @@
     <ion-toolbar>
       <ion-title size="large">Tab 1</ion-title>
     </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  </ion-header>  
 </ion-content>
