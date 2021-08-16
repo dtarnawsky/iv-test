@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../authentication/authentication.service';
+import { VaultService } from '../vault.service';
 
 @Component({
   selector: 'app-tab1',
@@ -10,7 +11,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 export class Tab1Page {
   public authenticationChange$: Observable<boolean>;
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService, private vaultService: VaultService) {
     this.authenticationChange$ = authenticationService.authenticationChange$;
   }
 
@@ -20,5 +21,24 @@ export class Tab1Page {
 
   async logout(): Promise<void> {
     this.authenticationService.logout();
+  }
+
+  async refresh() {
+    console.log(await this.authenticationService.isRefreshTokenAvailable());
+    const token = this.authenticationService.getAccessToken();
+    console.log(token);
+    await this.authenticationService.refreshSession();
+    const atoken = this.authenticationService.getAccessToken();
+    console.log(atoken);
+    if (atoken != token) {      
+      alert('awesome')
+    }
+    //const token =  await this.authenticationService.getRefreshToken();        
+    //alert(token);        
+  }
+
+  async check() {
+    await this.vaultService.lock();
+    alert('locked');
   }
 }
