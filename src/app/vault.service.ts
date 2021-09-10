@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { BrowserVault, DeviceSecurityType, IdentityVaultConfig, Vault, VaultType } from '@ionic-enterprise/identity-vault';
+import { Platform } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class VaultService {
     key: 'io.ionic.iv-test',
     type: VaultType.DeviceSecurity,
     deviceSecurityType: DeviceSecurityType.Both,
-    lockAfterBackgrounded: 20000,
+    lockAfterBackgrounded: null,
     shouldClearVaultAfterTooManyFailedAttempts: false,
     customPasscodeInvalidUnlockAttempts: 10,
     unlockVaultOnLoad: false,
@@ -19,15 +20,35 @@ export class VaultService {
 
   vault: Vault | BrowserVault;
 
-  constructor() {
+  constructor(private platform: Platform) {
+
     this.init();
-   }
+  }
 
-   async init() {
-     this.vault = Capacitor.getPlatform() === 'web' ? new BrowserVault(this.config) : new Vault(this.config);
-   }
+  async init() {
+    await this.platform.ready();
 
-   async lock() {
-     await this.vault.lock();
-   }
+    this.vault = Capacitor.getPlatform() === 'web' ? new BrowserVault(this.config) : new Vault(this.config);
+    this.vault.onLock(() => {
+      console.log('Vault was locked');
+    });
+    this.vault.onUnlock(() => {
+      console.log('Vault was unlocked');
+    });
+    this.vault.onError((err) => {
+      console.log('Vault error', err);
+    });
+  }
+
+  async lock() {
+    await this.vault.lock();
+  }
+
+  async unlock() {
+    try {
+      await this.vault.unlock();
+    } catch (err) {
+      console.error(err);
+    }
+  }
 }

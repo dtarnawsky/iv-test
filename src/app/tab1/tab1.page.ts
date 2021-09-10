@@ -31,14 +31,16 @@ export class Tab1Page {
     const atoken = this.authenticationService.getAccessToken();
     console.log(atoken);
     if (atoken != token) {      
-      alert('awesome')
-    }
-    //const token =  await this.authenticationService.getRefreshToken();        
-    //alert(token);        
+      alert('Token was refreshed')
+    }    
   }
 
-  async check() {
+  async lock() {
     await this.vaultService.lock();
-    alert('locked');
   }
+
+  async unlock() {
+    await this.vaultService.unlock();
+  }
+
 }

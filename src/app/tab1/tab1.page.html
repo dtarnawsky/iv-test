@@ -15,7 +15,11 @@
     <ion-toolbar>
       <ion-title size="large">Tab 1</ion-title>
     </ion-toolbar>
-  </ion-header>  
+  </ion-header>
   <ion-button (click)="refresh()">Refresh</ion-button>
-  <ion-button (click)="check()">Check</ion-button>
+
+  <div style="padding:50px">
+    <ion-button (click)="lock()">Lock</ion-button>
+    <ion-button (click)="unlock()">Unlock</ion-button>
+  </div>
 </ion-content>
