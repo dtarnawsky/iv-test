@@ -43,4 +43,8 @@ export class Tab1Page {
     await this.vaultService.unlock();
   }
 
+  async clear() {
+    await this.vaultService.clear();
+  }
+
 }
