@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
-import { BrowserVault, DeviceSecurityType, IdentityVaultConfig, Vault, VaultType } from '@ionic-enterprise/identity-vault';
+import { BrowserVault, Device, DeviceSecurityType, IdentityVaultConfig, Vault, VaultType } from '@ionic-enterprise/identity-vault';
 import { Platform } from '@ionic/angular';
 
 @Injectable({
@@ -56,11 +56,23 @@ export class VaultService {
     }
   }
 
+  async setData() {
+    try {
+      await this.vault.setValue("blar", "test");
+    } catch (err) {
+      console.error('vault.service.ts setData()', err);
+    }
+  }
+
   async clear() {
     try {
       await this.vault.clear();
     } catch (err) {
       console.error('vault.service.ts clear()', err);
     }
+  }
+
+  async hasBiometrics() : Promise<boolean> {
+    return await Device.isBiometricsEnabled();
   }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Device } from '@ionic-enterprise/identity-vault';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { VaultService } from '../vault.service';
@@ -16,6 +17,7 @@ export class Tab1Page {
   }
 
   async login(): Promise<void> {
+    Device.setHideScreenOnBackground(false);
     this.authenticationService.login();
   }
 
@@ -45,6 +47,15 @@ export class Tab1Page {
 
   async clear() {
     await this.vaultService.clear();
+  }
+
+  async setData() {
+    await this.vaultService.setData();
+  }
+
+  async checkBio() {
+    const hasBio = await this.vaultService.hasBiometrics();
+    alert('Biometrics is '+hasBio);
   }
 
 }
