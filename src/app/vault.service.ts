@@ -58,7 +58,7 @@ export class VaultService {
 
   async setData() {
     try {
-      await this.vault.setValue("blar", "test");
+      await this.vault.setValue("blar", "test");      
     } catch (err) {
       console.error('vault.service.ts setData()', err);
     }

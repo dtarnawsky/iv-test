@@ -17,8 +17,9 @@ export class Tab1Page {
   }
 
   async login(): Promise<void> {
-    Device.setHideScreenOnBackground(false);
-    this.authenticationService.login();
+    // This line is required if iosWebView is shared and we are using Identity Vault. It prevents the privacy screen from displaying
+    // Device.setHideScreenOnBackground(false);
+    await this.authenticationService.login();
   }
 
   async logout(): Promise<void> {
@@ -27,10 +28,10 @@ export class Tab1Page {
 
   async refresh() {
     console.log(await this.authenticationService.isRefreshTokenAvailable());
-    const token = this.authenticationService.getAccessToken();
+    const token = await this.authenticationService.getAccessToken();
     console.log(token);
     await this.authenticationService.refreshSession();
-    const atoken = this.authenticationService.getAccessToken();
+    const atoken = await this.authenticationService.getAccessToken();
     console.log(atoken);
     if (atoken != token) {      
       alert('Token was refreshed')
