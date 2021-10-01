@@ -30,7 +30,8 @@ export const nativeIonicAuthOptions: IonicAuthOptions = {
   // to share site data with the app. 'private' uses a webview which will
   // not prompt the user but will not be able to share session/cookie data
   // either for true SSO across multiple apps.
-  iosWebView: 'private'  
+  iosWebView: 'private',
+  webAuthFlow: 'PKCE'  
 };
 
 export const webIonicAuthOptions: IonicAuthOptions = {
