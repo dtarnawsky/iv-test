@@ -12,6 +12,7 @@ dependencies {
     implementation project(':capacitor-app')
     implementation project(':capacitor-haptics')
     implementation project(':capacitor-keyboard')
+    implementation project(':capacitor-push-notifications')
     implementation "androidx.browser:browser:1.3.0"
     implementation "com.squareup.okhttp3:okhttp-urlconnection:3.10.0"
 }

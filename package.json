@@ -1,5 +1,5 @@
 {
-  "name": "iv-test",
+  "name": "io.ionic.iv.test",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
@@ -25,8 +25,9 @@
     "@capacitor/haptics": "1.0.3",
     "@capacitor/ios": "3.2.2",
     "@capacitor/keyboard": "1.0.3",
-    "@ionic-enterprise/auth": "^3.8.1-dev-c40f52d.0",
-    "@ionic-enterprise/identity-vault": "^5.0.3",
+    "@capacitor/push-notifications": "^1.0.4",
+    "@ionic-enterprise/auth": "^3.8.0",
+    "@ionic-enterprise/identity-vault": "^5.0.5",
     "@ionic/angular": "^5.5.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

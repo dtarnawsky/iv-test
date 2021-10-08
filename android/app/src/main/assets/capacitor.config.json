@@ -1,5 +1,5 @@
 {
-	"appId": "io.ionic.iv-test",
+	"appId": "io.ionic.iv.test",
 	"appName": "iv-test",
 	"webDir": "www",
 	"bundledWebRuntime": false
