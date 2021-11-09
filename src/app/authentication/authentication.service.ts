@@ -14,7 +14,7 @@ export class AuthenticationService extends IonicAuth {
 
   constructor(platform: Platform, private ngZone: NgZone, private vaultService: VaultService) {
     super(platform.is('hybrid') 
-    ? { ...nativeIonicAuthOptions, iosWebView: 'shared', tokenStorageProvider: vaultService.vault }
+    ? { ...nativeIonicAuthOptions, tokenStorageProvider: vaultService.vault }
     : webIonicAuthOptions
     );
     this.authenticationChange$ = this.authenticationChange.asObservable();

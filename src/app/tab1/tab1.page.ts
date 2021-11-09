@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Device } from '@ionic-enterprise/identity-vault';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../authentication/authentication.service';
@@ -9,11 +9,17 @@ import { VaultService } from '../vault.service';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
+export class Tab1Page implements OnInit {
+
   public authenticationChange$: Observable<boolean>;
 
   constructor(private authenticationService: AuthenticationService, private vaultService: VaultService) {
     this.authenticationChange$ = authenticationService.authenticationChange$;
+
+  }
+
+  ngOnInit() {
+
   }
 
   async login(): Promise<void> {
@@ -33,9 +39,9 @@ export class Tab1Page {
     await this.authenticationService.refreshSession();
     const atoken = await this.authenticationService.getAccessToken();
     console.log(atoken);
-    if (atoken != token) {      
+    if (atoken != token) {
       alert('Token was refreshed')
-    }    
+    }
   }
 
   async lock() {
@@ -54,9 +60,17 @@ export class Tab1Page {
     await this.vaultService.setData();
   }
 
+  async getData() {
+    await this.vaultService.getData();
+  }
+
   async checkBio() {
     const hasBio = await this.vaultService.hasBiometrics();
-    alert('Biometrics is '+hasBio);
+    alert('Biometrics is ' + hasBio);
+  }
+
+  async useSecure(enabled: boolean) {
+    this.vaultService.useSecure(enabled);
   }
 
 }
