@@ -9,10 +9,10 @@ import { Platform } from '@ionic/angular';
 export class VaultService {
 
   config: IdentityVaultConfig = {
-    key: 'io.ionic.iv-test-bio2',
+    key: 'io.ionic.iv-test-bio4',
     type: VaultType.DeviceSecurity,
     deviceSecurityType: DeviceSecurityType.Biometrics,
-    lockAfterBackgrounded: null,
+    lockAfterBackgrounded: 2000,
     shouldClearVaultAfterTooManyFailedAttempts: false,
     customPasscodeInvalidUnlockAttempts: 10,
     unlockVaultOnLoad: false,
@@ -21,7 +21,6 @@ export class VaultService {
   vault: Vault | BrowserVault;
 
   constructor(private platform: Platform) {
-
     this.init();
   }
 
@@ -39,9 +38,10 @@ export class VaultService {
       console.log('Vault was unlocked');
     });
     this.vault.onError((err) => {
-      console.log('Vault error', err);
+      console.error('Vault error', err);
+      alert(err.code+': '+err.message);
     });
-
+    await Device.setHideScreenOnBackground(true);
   }
 
   // This is used to test the vault migrator
@@ -65,29 +65,32 @@ export class VaultService {
     try {
       await this.vault.unlock();
     } catch (err) {
-      const msg = (typeof err == "object") ? JSON.stringify(err) : err;
+      const msg = (typeof err == 'object') ? JSON.stringify(err) : err;
       console.error('vault.service.ts unlock()', msg);
     }
   }
 
   async useSecure(enabled: boolean) {
     this.config.type = enabled ? VaultType.SecureStorage : VaultType.DeviceSecurity;
-    this.config.deviceSecurityType = enabled ? DeviceSecurityType.None : DeviceSecurityType.Biometrics;    
+    this.config.deviceSecurityType = enabled ? DeviceSecurityType.None : DeviceSecurityType.Biometrics;
     await this.vault.updateConfig(this.config);
     this.setData();
 
   }
 
   async getData() {
-    console.log("Get Data....");
-    const data = await this.vault.getValue("blar");
-    console.log("Get Data", data);
+    console.log('Get Data....');
+    const data = await this.vault.getValue('blar');
+    if (data !== 'test') {
+      alert('Oh Crap!');
+    }
+    console.log('Get Data', data);
   }
 
   async setData() {
     try {
       console.log('Setting data...');
-      await this.vault.setValue("blar", "test");
+      await this.vault.setValue('blar', 'test');
       console.log('Data is set');
     } catch (err) {
       console.error('vault.service.ts setData()', err);
@@ -97,6 +100,7 @@ export class VaultService {
   async clear() {
     try {
       await this.vault.clear();
+      console.log('Vault was cleared');
     } catch (err) {
       console.error('vault.service.ts clear()', err);
     }

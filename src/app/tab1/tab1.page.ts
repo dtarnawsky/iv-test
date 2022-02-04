@@ -29,7 +29,13 @@ export class Tab1Page implements OnInit {
   }
 
   async logout(): Promise<void> {
+    try
+    {
     this.authenticationService.logout();
+    } catch (err)
+    {
+      console.error(err);
+    }
   }
 
   async refresh() {
