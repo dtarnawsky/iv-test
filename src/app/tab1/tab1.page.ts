@@ -19,7 +19,6 @@ export class Tab1Page implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   async login(): Promise<void> {
@@ -29,11 +28,9 @@ export class Tab1Page implements OnInit {
   }
 
   async logout(): Promise<void> {
-    try
-    {
-    this.authenticationService.logout();
-    } catch (err)
-    {
+    try {
+      this.authenticationService.logout();
+    } catch (err) {
       console.error(err);
     }
   }
@@ -45,8 +42,8 @@ export class Tab1Page implements OnInit {
     await this.authenticationService.refreshSession();
     const atoken = await this.authenticationService.getAccessToken();
     console.log(atoken);
-    if (atoken != token) {
-      alert('Token was refreshed')
+    if (atoken !== token) {
+      alert('Token was refreshed');
     }
   }
 
