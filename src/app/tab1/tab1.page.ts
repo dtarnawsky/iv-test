@@ -76,4 +76,8 @@ export class Tab1Page implements OnInit {
     this.vaultService.useSecure(enabled);
   }
 
+  async setToPasscode() {
+    this.vaultService.switchPasscode();
+  }
+
 }

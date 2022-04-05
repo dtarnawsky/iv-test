@@ -13,7 +13,7 @@ export class AuthenticationService extends IonicAuth {
   private authenticationChange: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(platform: Platform, private ngZone: NgZone, private vaultService: VaultService) {
-    super(platform.is('hybrid') 
+    super(platform.is('hybrid')
     ? { ...nativeIonicAuthOptions, tokenStorageProvider: vaultService.vault }
     : webIonicAuthOptions
     );
