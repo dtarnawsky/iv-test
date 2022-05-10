@@ -35,6 +35,14 @@ export class Tab1Page implements OnInit {
     }
   }
 
+  async testMigrate(): Promise<void> {
+    try {
+      await this.vaultService.testMigrate();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   async refresh() {
     console.log(await this.authenticationService.isRefreshTokenAvailable());
     const token = await this.authenticationService.getAccessToken();
