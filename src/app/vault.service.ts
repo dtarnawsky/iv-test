@@ -12,11 +12,11 @@ import { AlertController, Platform } from '@ionic/angular';
 export class VaultService {
 
   config: IdentityVaultConfig = {
-    key: 'io.ionic.iv-test-bio4',
+    key: 'io.ionic.iv-test-bio5',
     type: VaultType.DeviceSecurity,
     deviceSecurityType: DeviceSecurityType.Biometrics,
     lockAfterBackgrounded: 2000,
-    shouldClearVaultAfterTooManyFailedAttempts: false,
+    shouldClearVaultAfterTooManyFailedAttempts: true,
     customPasscodeInvalidUnlockAttempts: 10,
     unlockVaultOnLoad: false,
   };
@@ -91,17 +91,21 @@ export class VaultService {
     }
   }
 
-  async lock() {
+  async lock(): Promise<boolean> {
     try {
       await this.vault.lock();
+      console.log('vault was locked');
+      return true;
     } catch (err) {
       console.error('vault.service.ts lock()', err);
+      return false;
     }
   }
 
   async unlock() {
     try {
       await this.vault.unlock();
+      console.log('vault was unlocked');
     } catch (err) {
       const msg = (typeof err == 'object') ? JSON.stringify(err) : err;
       console.error('vault.service.ts unlock()', msg);

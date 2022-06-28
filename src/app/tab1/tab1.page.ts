@@ -61,7 +61,12 @@ export class Tab1Page {
   }
 
   async lock() {
-    await this.vaultService.lock();
+    if (await this.vaultService.lock()) {
+      const isLocked = await this.vaultService.isLocked();
+      if (!isLocked) {
+        this.vaultService.presentAlert('Error','Vault lock call was sucessfully made but is returning locked is false');
+      }
+    }
     await this.update();
   }
 
