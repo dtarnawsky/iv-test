@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Device } from '@ionic-enterprise/identity-vault';
+import { Platform } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { VaultService } from '../vault.service';
@@ -9,16 +10,27 @@ import { VaultService } from '../vault.service';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page implements OnInit {
-
+export class Tab1Page {
+  public isEmpty: string;
+  public isLocked: string;
   public authenticationChange$: Observable<boolean>;
 
-  constructor(private authenticationService: AuthenticationService, private vaultService: VaultService) {
+  constructor(private authenticationService: AuthenticationService, private vaultService: VaultService, private platform: Platform) {
     this.authenticationChange$ = authenticationService.authenticationChange$;
+    this.platform.resume.subscribe(async () => {
+      await this.update();
+    });
 
   }
 
-  ngOnInit() {
+  async ionViewDidEnter() {
+    this.update();
+  }
+
+  async update() {
+    this.isEmpty = await this.vaultService.isEmpty() ? 'Vault is empty': 'Vault has data';
+    this.isLocked = await this.vaultService.isLocked() ? 'Vault is locked': 'Vault is unlocked';
+
   }
 
   async login(): Promise<void> {
@@ -35,13 +47,6 @@ export class Tab1Page implements OnInit {
     }
   }
 
-  async testMigrate(): Promise<void> {
-    try {
-      await this.vaultService.testMigrate();
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   async refresh() {
     console.log(await this.authenticationService.isRefreshTokenAvailable());
@@ -57,22 +62,32 @@ export class Tab1Page implements OnInit {
 
   async lock() {
     await this.vaultService.lock();
+    await this.update();
   }
 
   async unlock() {
     await this.vaultService.unlock();
+    await this.update();
   }
 
   async clear() {
     await this.vaultService.clear();
+    await this.update();
   }
 
   async setData() {
     await this.vaultService.setData();
+    await this.update();
   }
 
   async getData() {
-    await this.vaultService.getData();
+    try {
+      const data = await this.vaultService.getData();
+      this.vaultService.presentAlert('Message', `The vault data read as "${data}"`);
+    } catch (err) {
+      this.vaultService.presentAlert('Error', `Failed to get data "${err.message}" (Error Code: ${err.code})`);
+      await this.update();
+    }
   }
 
   async checkBio() {
