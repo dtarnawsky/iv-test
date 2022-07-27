@@ -67,7 +67,7 @@ export class VaultService {
           type: VaultType.SecureStorage,
           deviceSecurityType: DeviceSecurityType.None,
           lockAfterBackgrounded: 2000,
-          shouldClearVaultAfterTooManyFailedAttempts: false,
+          shouldClearVaultAfterTooManyFailedAttempts: true,
           customPasscodeInvalidUnlockAttempts: 10,
           unlockVaultOnLoad: false,
         }
@@ -81,7 +81,7 @@ export class VaultService {
           type: VaultType.DeviceSecurity,
           deviceSecurityType: DeviceSecurityType.SystemPasscode,
           lockAfterBackgrounded: 2000,
-          shouldClearVaultAfterTooManyFailedAttempts: false,
+          shouldClearVaultAfterTooManyFailedAttempts: true,
           customPasscodeInvalidUnlockAttempts: 10,
           unlockVaultOnLoad: false,
         }

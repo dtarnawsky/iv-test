@@ -64,7 +64,7 @@ export class Tab1Page {
     if (await this.vaultService.lock()) {
       const isLocked = await this.vaultService.isLocked();
       if (!isLocked) {
-        this.vaultService.presentAlert('Error','Vault lock call was sucessfully made but is returning locked is false');
+        this.vaultService.presentAlert('Error','Vault lock call was successfully made but is returning locked is false');
       }
     }
     await this.update();
@@ -73,6 +73,11 @@ export class Tab1Page {
   async unlock() {
     await this.vaultService.unlock();
     await this.update();
+  }
+
+  async checkIsEmpty() {
+    const isEmpty = await this.vaultService.isEmpty();
+    this.vaultService.presentAlert('Message', `isEmpty is ${isEmpty}"`);
   }
 
   async clear() {
