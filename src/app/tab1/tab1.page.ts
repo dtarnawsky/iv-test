@@ -113,4 +113,8 @@ export class Tab1Page {
     this.vaultService.switchPasscode();
   }
 
+  async setToBoth() {
+    this.vaultService.switchBoth();
+  }
+
 }

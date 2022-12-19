@@ -59,6 +59,13 @@ export class VaultService {
     return role;
   }
 
+  async switchBoth() {
+    this.config.type = VaultType.DeviceSecurity;
+    this.config.deviceSecurityType = DeviceSecurityType.Both;
+    await this.vault.updateConfig(this.config);
+    this.setData();
+  }
+
   async switchPasscode() {
     try {
       this.vault = new Vault(
