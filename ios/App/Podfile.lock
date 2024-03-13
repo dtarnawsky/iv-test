@@ -10,6 +10,8 @@ PODS:
     - Capacitor
   - CapacitorPushNotifications (5.1.1):
     - Capacitor
+  - CapacitorShare (5.0.7):
+    - Capacitor
   - CordovaPlugins (5.7.2):
     - CapacitorCordova
 
@@ -20,6 +22,7 @@ DEPENDENCIES:
   - "CapacitorHaptics (from `../../node_modules/@capacitor/haptics`)"
   - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
   - "CapacitorPushNotifications (from `../../node_modules/@capacitor/push-notifications`)"
+  - "CapacitorShare (from `../../node_modules/@capacitor/share`)"
   - CordovaPlugins (from `../capacitor-cordova-ios-plugins`)
 
 EXTERNAL SOURCES:
@@ -35,6 +38,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/keyboard"
   CapacitorPushNotifications:
     :path: "../../node_modules/@capacitor/push-notifications"
+  CapacitorShare:
+    :path: "../../node_modules/@capacitor/share"
   CordovaPlugins:
     :path: "../capacitor-cordova-ios-plugins"
 
@@ -45,8 +50,9 @@ SPEC CHECKSUMS:
   CapacitorHaptics: 7c7c206f0c96a628fed073830c96d28c4b2e772e
   CapacitorKeyboard: aec619a578235c6ce279075009a2689c2cf5c42c
   CapacitorPushNotifications: 2327900bc002f5ff49ee6d2231796d0635b4a1b0
+  CapacitorShare: c6a1ebbf0114ff9e863b966cd6052678fa25d480
   CordovaPlugins: 5b723273511f1d3586f0ecdc70a9f7bfd8ff99a3
 
-PODFILE CHECKSUM: 6e4d93cf493c76e85dd0ea63bca352e41a22e1bd
+PODFILE CHECKSUM: ea77f135f96deb36a8eceb3c8b9f5d30898f0632
 
 COCOAPODS: 1.14.3
