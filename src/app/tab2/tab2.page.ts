@@ -4,54 +4,54 @@ import { VaultLockEvent } from '@ionic-enterprise/identity-vault/dist/typings/Va
 import { VaultService } from '../vault.service';
 
 @Component({
-  selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+    selector: 'app-tab2',
+    templateUrl: 'tab2.page.html',
+    styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
 
-  config: IdentityVaultConfig = {
-    key: 'io.ionic.iv-test-both',
-    type: VaultType.DeviceSecurity,
-    deviceSecurityType: DeviceSecurityType.Both,
-    unlockVaultOnLoad: false,
-  };
+    config: IdentityVaultConfig = {
+        key: 'io.ionic.iv-test-both',
+        type: VaultType.DeviceSecurity,
+        deviceSecurityType: DeviceSecurityType.Both,
+        unlockVaultOnLoad: false,
+    };
 
-  vault: Vault;
+    vault: Vault;
 
-  constructor() { }
+    constructor() { }
 
-  async getStatus() {
-    alert(`isSystemPasscodeSet=${await Device.isSystemPasscodeSet()} isBiometricsEnabled=${await Device.isBiometricsEnabled()}`);
-  }
-
-  setVault() {
-    this.vault = new Vault(this.config);
-    this.vault.onError((err: VaultError) => {
-      alert('Vault Error: ' + JSON.stringify(err));
-    });
-    this.vault.onLock((lockEvent: VaultLockEvent) => {
-      alert('Vault is Locked ' + JSON.stringify(lockEvent));
-    });
-    this.vault.onUnlock(() => {
-      alert('Vault is unlocked');
-    });
-  }
-
-  async setVaultValue() {
-    try {
-      await this.vault.setValue('stuff', 'things');
-    } catch (err) {
-      alert(err);
+    async getStatus() {
+        alert(`isSystemPasscodeSet=${await Device.isSystemPasscodeSet()} isBiometricsEnabled=${await Device.isBiometricsEnabled()}`);
     }
-  }
 
-  async clearVault() {
-    try {
-      await this.vault.clear();
-    } catch (err) {
-      alert(err);
+    setVault() {
+        this.vault = new Vault(this.config);
+        this.vault.onError((err: VaultError) => {
+            alert('Vault Error: ' + JSON.stringify(err));
+        });
+        this.vault.onLock((lockEvent: VaultLockEvent) => {
+            alert('Vault is Locked ' + JSON.stringify(lockEvent));
+        });
+        this.vault.onUnlock(() => {
+            alert('Vault is unlocked');
+        });
     }
-  }
+
+    async setVaultValue() {
+        try {
+            await this.vault.setValue('stuff', 'things');
+        } catch (err) {
+            alert(err);
+        }
+    }
+
+    async clearVault() {
+        try {
+            await this.vault.clear();
+        } catch (err) {
+            alert(err);
+        }
+    }
 
 }
