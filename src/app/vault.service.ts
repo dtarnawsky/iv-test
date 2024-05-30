@@ -12,7 +12,7 @@ import { AlertController, Platform } from '@ionic/angular/standalone';
 export class VaultService {
 
     config: IdentityVaultConfig = {
-        key: 'io.ionic.iv-test-bio6',
+        key: 'io.ionic.iv-test-bio7',
         type: VaultType.DeviceSecurity,
         deviceSecurityType: DeviceSecurityType.Biometrics,
         lockAfterBackgrounded: undefined,
@@ -24,12 +24,12 @@ export class VaultService {
     vault: Vault | BrowserVault;
 
     constructor(private platform: Platform, private alertController: AlertController) {
-        this.init();
     }
 
     async init() {
         await this.platform.ready();
-        this.vault = Capacitor.getPlatform() === 'web' ? new BrowserVault(this.config) : new Vault(this.config);
+        this.vault = Capacitor.getPlatform() === 'web' ? new BrowserVault() : new Vault();
+        this.vault.initialize(this.config);
         this.vault.onConfigChanged(() => {
             console.log('Vault configuration was changed', this.config);
         });
@@ -44,6 +44,12 @@ export class VaultService {
             this.presentAlert('Vault Error', err.code + ': ' + err.message);
         });
         await Device.setHideScreenOnBackground(true);
+    }
+
+    // Call initialize multiple times to test if double prompts
+    async multiInit() {
+        this.vault = Capacitor.getPlatform() === 'web' ? new BrowserVault() : new Vault();
+        await this.vault.initialize(this.config);
     }
 
     async presentAlert(header: string, message: string): Promise<string> {
