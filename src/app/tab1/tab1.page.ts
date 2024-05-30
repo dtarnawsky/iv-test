@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Device } from '@ionic-enterprise/identity-vault';
+import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular/standalone';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../authentication/authentication.service';
@@ -109,6 +108,10 @@ export class Tab1Page {
             this.vaultService.presentAlert('Error', `Failed to get data "${err.message}" (Error Code: ${err.code})`);
             await this.update();
         }
+    }
+
+    async multiInit() {
+        await this.vaultService.multiInit();
     }
 
     async checkBio() {

@@ -5,7 +5,7 @@ import { Tab1Page } from './tab1.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { Tab1PageRoutingModule } from './tab1-routing.module';
-import { IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonToggle } from "@ionic/angular/standalone";
 
 @NgModule({
     imports: [
@@ -18,6 +18,7 @@ import { IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent } fr
         IonButtons,
         IonTitle,
         IonButton,
+        IonToggle,
         IonContent
     ],
     declarations: [Tab1Page]
